@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Launch Week 16 ticket claim flow: a collectible card in a smoke glass case, engraved by laser, with your reflection in it.">
+  <title>LW16 · Card flow</title>
+  <link rel="stylesheet" href="./style.css?v=9">
+  <script type="importmap">{"imports":{"three":"../shared/three/three.module.js"}}</script>
+</head>
+<body>
+  <div class="state-page">
+    <div class="state-layout">
+      <nav class="state-switcher" id="switcher" aria-label="States"></nav>
+      <div class="state-switcher-select">
+        <select id="switcher-select" aria-label="State"></select>
+        <svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4" /></svg>
+      </div>
+
+      <main class="state-stage" id="study">
+        <h1 class="sr-only">Launch Week 16 ticket</h1>
+        <canvas id="scene" role="img" aria-label="Your Launch Week 16 ticket" aria-describedby="help"></canvas>
+        <p id="help" class="sr-only">Drag the ticket to turn it. Drag far enough to flip it. Click the ticket to tap it.</p>
+        <p id="fallback" hidden>WebGL is unavailable. The ticket needs a browser with 3D rendering.</p>
+        <video id="camera" playsinline muted hidden></video>
+
+        <section class="panel" id="panel" aria-live="polite">
+          <div data-for="idle">
+            <h2 tabindex="-1">5 days of Supabase</h2>
+            <p class="sub">Starts 6th December, 2026</p>
+            <div class="actions"><button class="primary" type="button" data-send="CLAIM">Claim your ticket</button></div>
+          </div>
+
+          <form data-for="claim" id="claim-form" hidden>
+            <h2 tabindex="-1">Name your ticket</h2>
+            <p class="sub">A laser writes it on the case.</p>
+            <label class="label" for="handle">Name or handle</label>
+            <div class="field">
+              <span aria-hidden="true">@</span>
+              <input id="handle" name="handle" required maxlength="18" pattern="@?[A-Za-z0-9_.\-]+" title="Letters, numbers, dots, dashes and underscores" autocomplete="username" autocapitalize="none" spellcheck="false">
+            </div>
+            <div class="actions">
+              <button class="primary" type="submit">Engrave my ticket</button>
+              <button class="quiet" type="button" data-send="CANCEL">Back</button>
+            </div>
+          </form>
+
+          <div data-for="engrave" hidden>
+            <h2 tabindex="-1">Engraving <span data-text="handle"></span></h2>
+            <p class="sub">Ticket <span data-text="number"></span></p>
+          </div>
+
+          <div data-for="ready" hidden>
+            <h2 tabindex="-1">You're in, <span data-text="handle"></span></h2>
+            <p class="sub" id="ready-note"></p>
+            <div class="actions">
+              <button class="primary" type="button" id="stamp" data-send="STAMP"></button>
+              <button class="quiet" type="button" id="mirror" data-send="MIRROR">See yourself in it</button>
+              <button class="quiet" type="button" id="flip">Flip</button>
+              <button class="quiet" type="button" data-send="EDIT">Edit name</button>
+              <button class="quiet" type="button" data-send="RESET">Start over</button>
+            </div>
+          </div>
+
+          <div data-for="stamp" hidden>
+            <h2 tabindex="-1" id="stamp-title"></h2>
+            <p class="sub" id="stamp-note"></p>
+          </div>
+
+          <div data-for="mirror-asking" hidden>
+            <h2 tabindex="-1">Allow your camera</h2>
+            <p class="sub">The ticket reflects you. Video stays on this device.</p>
+            <div class="actions"><button class="quiet" type="button" data-send="CANCEL">Not now</button></div>
+          </div>
+
+          <div data-for="mirror-live" hidden>
+            <h2 tabindex="-1">That's you in the reflection</h2>
+            <p class="sub" id="feed-note">Tilt the ticket to move your reflection.</p>
+            <div class="actions">
+              <button class="primary" type="button" data-send="STOP">Turn camera off</button>
+              <button class="quiet" type="button" id="flip-live">Flip</button>
+            </div>
+          </div>
+
+          <div data-for="mirror-denied" hidden>
+            <h2 tabindex="-1">Camera is blocked</h2>
+            <p class="sub" id="denied-note">Allow the camera in your browser's site settings, then try again.</p>
+            <div class="actions">
+              <button class="primary" type="button" data-send="RETRY">Try again</button>
+              <button class="quiet" type="button" data-send="CANCEL">Skip</button>
+            </div>
+          </div>
+        </section>
+
+        <footer class="bar">
+          <div class="segmented" id="materials" role="group" aria-label="Ticket material">
+            <button type="button" data-material="smoke" aria-pressed="true">Smoke</button>
+            <button type="button" data-material="chrome" aria-pressed="false">Chrome</button>
+          </div>
+          <div class="toggles">
+            <button type="button" id="texture" hidden>Clear texture</button>
+            <button type="button" id="art"></button>
+            <button type="button" id="sound" aria-pressed="true">Sound</button>
+            <span aria-hidden="true">·</span>
+            <div role="group" aria-label="Theme" id="themes">
+              <button type="button" data-theme-option="light" aria-pressed="true">Light</button>
+              <button type="button" data-theme-option="dark" aria-pressed="false">Dark</button>
+            </div>
+          </div>
+        </footer>
+
+        <section class="real" id="real" hidden>
+          <p id="real-note"></p>
+          <button type="button" id="calibrate">Wrong size?</button>
+          <div class="ruler" id="ruler" hidden>
+            <p>Hold a bank card on the outline. Drag until they match.</p>
+            <div class="bank-card" id="bank-card"></div>
+            <input type="range" id="scale" min="3" max="9" step="0.01" aria-label="Screen scale">
+            <button class="primary" type="button" id="calibrate-done">Done</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="./main.js?v=18"></script>
+</body>
+</html>

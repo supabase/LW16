@@ -1,0 +1,77 @@
+:root {
+  color-scheme: dark;
+  --paper: #060606;
+  --ink: #e8e8e6;
+  --edge: #e8e8e630;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+#study {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: clip;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.controls {
+  position: absolute;
+  left: 26px;
+  bottom: 24px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  background: #060606e8;
+  color: inherit;
+}
+
+.icon:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

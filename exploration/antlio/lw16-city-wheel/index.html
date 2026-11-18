@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0c0d0d">
+  <meta name="description" content="HackDay in ten cities: a wheel of city names around a glass globe, on a tube screen. It turns without end.">
+  <title>HackDay · City wheel</title>
+  <link rel="stylesheet" href="./style.css?v=19">
+</head>
+<body>
+  <main>
+    <section aria-labelledby="title">
+      <div class="pin">
+        <canvas id="wheel" aria-hidden="true"></canvas>
+        <h1 class="wordmark" id="title"><svg id="mark" role="img" aria-label="HackDay"></svg></h1>
+        <a class="cta" id="cta" href="#">
+          <span class="lens" id="lens" aria-hidden="true"></span>
+          <span class="cta-text"><span class="cta-action" id="cta-action"></span> <span>10th December, 2026</span></span>
+        </a>
+        <dl class="cells" id="cells">
+          <div class="sr-only"><dt>City</dt><dd data-cell="name"></dd></div>
+          <div><dt class="sr-only">Session, local time</dt><dd data-cell="session"></dd></div>
+          <div><dt class="sr-only">People</dt><dd data-cell="count"></dd></div>
+          <div class="status"><dt class="sr-only">Status</dt><svg viewBox="0 0 12 12" aria-hidden="true"></svg><dd data-cell="status"></dd></div>
+        </dl>
+        <p class="sr-only" id="status" role="status"></p>
+        <table class="sr-only">
+          <caption>The ten cities, from the first to start to the last</caption>
+          <thead><tr><th scope="col">City</th><th scope="col">Session, local time</th><th scope="col">People</th><th scope="col">Status</th></tr></thead>
+          <tbody id="cities"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="./mark.js?v=5"></script>
+  <script type="module" src="./wheel.js?v=48"></script>
+</body>
+</html>

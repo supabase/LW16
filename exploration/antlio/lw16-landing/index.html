@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Launch Week 16. Five days of Supabase, and a ticket engraved for everyone who joins.">
+  <title>LW16 · Landing</title>
+  <link rel="stylesheet" href="./style.css?v=17">
+  <script type="importmap">{"imports":{"three":"../shared/three/three.module.js"}}</script>
+</head>
+<body>
+  <main>
+    <section class="journey" id="journey" aria-label="Everyone who claimed a ticket">
+      <div class="pin">
+        <canvas id="crowd" aria-hidden="true"></canvas>
+
+        <div class="caption caption-start" data-range="-1,0.08">
+          <h1>5 days of Supabase</h1>
+          <p>Starts 6th December, 2026</p>
+          <a class="primary" href="../lw16-card-flow/?__state=claim">Claim your ticket</a>
+        </div>
+
+        <div class="caption caption-side" data-range="0.665,0.73">
+          <h2>Yours is next.</h2>
+          <p>Your name, written on the case by a laser.</p>
+          <a class="primary" href="../lw16-card-flow/?__state=claim">Claim your ticket</a>
+        </div>
+
+        <div class="caption carousel" data-range="0.87,2">
+          <header id="week">
+            <h2>Five days. Five launches.</h2>
+            <p>One launch unlocks each day.</p>
+          </header>
+          <div class="prism" id="prism" aria-hidden="true"></div>
+          <p class="label" id="front-day" aria-hidden="true"></p>
+          <ol class="days" id="ring" aria-label="The five launch days"></ol>
+          <footer class="outro" id="outro">
+            <h2>Launch Week 16 starts 6th December, 2026.</h2>
+            <a class="primary" href="../lw16-card-flow/?__state=claim">Claim your ticket</a>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script type="module" src="./landing.js?v=28"></script>
+</body>
+</html>

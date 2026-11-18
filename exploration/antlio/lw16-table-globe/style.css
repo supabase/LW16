@@ -1,0 +1,72 @@
+:root {
+  color-scheme: dark;
+  --paper: #0c0d0d;
+  --ink: #e8e8e6;
+  --edge: #e8e8e630;
+  --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* the page scrolls through this tall section while the canvas stays on screen */
+.story {
+  height: 320vh;
+}
+
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: clip;
+}
+
+#table {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  position: absolute;
+  left: clamp(20px, 4vw, 64px);
+  bottom: 24px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  color: inherit;
+}
+
+.icon:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

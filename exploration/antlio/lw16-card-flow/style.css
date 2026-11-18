@@ -1,0 +1,537 @@
+:root {
+  color-scheme: light;
+  --paper: #f3f1ec;
+  --ink: #161616;
+  --muted: #8b8983;
+  --on-ink: #f3f1ec;
+  --grain: 0.5;
+  --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #0c0c0c;
+  --ink: #ecebe6;
+  --muted: #77756f;
+  --on-ink: #0c0c0c;
+  --grain: 0.22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* stage */
+
+.state-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: clip;
+  isolation: isolate;
+  container: stage / inline-size;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: var(--grain);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+#scene:active {
+  cursor: grabbing;
+}
+
+#fallback {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  right: 15%;
+  text-align: center;
+  font: 13px/1.7 var(--mono);
+}
+
+.panel {
+  position: absolute;
+  left: clamp(20px, 9%, 160px);
+  bottom: 108px;
+  width: min(420px, calc(100% - 40px));
+  pointer-events: none;
+}
+
+.panel > * {
+  pointer-events: auto;
+}
+
+@container stage (min-width: 760px) {
+  .panel {
+    width: min(420px, 36cqw);
+  }
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-wrap: balance;
+  outline: none;
+}
+
+.panel .sub {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: 22px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.primary {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 15px;
+  font-weight: 500;
+  transition: scale 140ms ease-out;
+}
+
+.primary:active {
+  scale: 0.97;
+}
+
+.quiet {
+  padding: 10px 2px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 15px;
+  transition: color 140ms ease-out;
+}
+
+.quiet:hover {
+  color: var(--ink);
+}
+
+.label {
+  display: block;
+  margin-top: 22px;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--ink);
+  font: 500 22px/1.6 var(--mono);
+}
+
+.field span {
+  color: var(--muted);
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+.field input:focus-visible {
+  outline: none;
+}
+
+.field:focus-within {
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.bar {
+  position: absolute;
+  left: clamp(20px, 9%, 160px);
+  right: 28px;
+  bottom: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.segmented {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+}
+
+.segmented button {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  transition: background-color 140ms ease-out, color 140ms ease-out;
+}
+
+.segmented button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.toggles,
+.toggles div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggles button {
+  padding: 6px 0 4px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  color: var(--muted);
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.toggles button[aria-pressed='true'],
+.toggles #texture,
+.toggles #art {
+  color: var(--ink);
+  border-bottom-color: currentColor;
+}
+
+.toggles span {
+  color: var(--muted);
+}
+
+.state-stage.is-dropping::after {
+  content: 'Drop to texture the ticket';
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--ink);
+  border-radius: 20px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* a card opened from its code: only the card, at its real size */
+
+.state-page.is-real {
+  padding: 0;
+}
+
+.is-real .state-layout {
+  height: 100dvh;
+  min-height: 0;
+}
+
+.is-real .panel,
+.is-real .bar {
+  display: none;
+}
+
+.real {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.real p {
+  margin: 0;
+}
+
+#calibrate {
+  padding: 6px 0 4px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: none;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.ruler {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: var(--paper);
+}
+
+.bank-card {
+  border: 1px dashed var(--ink);
+  border-radius: 14px;
+}
+
+.ruler input {
+  width: min(320px, 80%);
+}
+
+@media (max-width: 640px) {
+  .panel {
+    bottom: 112px;
+  }
+
+  .panel h2,
+  .panel .sub {
+    font-size: 18px;
+  }
+
+  .bar {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .segmented button {
+    padding: 8px 10px;
+  }
+
+  #sound + span {
+    display: none;
+  }
+}
+
+/* state switcher: deliberately outside the page's design tokens */
+
+.state-page {
+  container: state-page / inline-size;
+  padding: 24px;
+}
+
+.state-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100dvh - 48px);
+  min-height: 560px;
+}
+
+.state-switcher {
+  all: unset;
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 6px;
+  border-radius: 14px;
+  background: rgb(20 20 20 / 0.92);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  font: 13px/1 system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  user-select: none;
+}
+
+.state-switcher-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.state-switcher-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.45);
+}
+
+.state-switcher button {
+  all: unset;
+  flex: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font: inherit;
+  color: rgb(255 255 255 / 0.6);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 200ms ease-out;
+}
+
+.state-switcher button:hover {
+  color: rgb(255 255 255 / 0.85);
+}
+
+.state-switcher button[aria-pressed='true'] {
+  background: rgb(255 255 255 / 0.14);
+  color: rgb(255 255 255);
+}
+
+.state-switcher button:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.7);
+  outline-offset: 2px;
+}
+
+.state-switcher-select {
+  position: relative;
+  align-self: flex-start;
+  max-width: 100%;
+  color: rgb(255 255 255);
+}
+
+.state-switcher-select select {
+  all: unset;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 10px 36px 10px 16px;
+  border-radius: 999px;
+  background: rgb(20 20 20 / 0.92);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  font: 500 13px/1 system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  cursor: pointer;
+}
+
+.state-switcher-select select:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.7);
+  outline-offset: 2px;
+}
+
+.state-switcher-select svg {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  translate: 0 -50%;
+  pointer-events: none;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.state-page.is-bare .state-switcher,
+.state-page.is-bare .state-switcher-select {
+  display: none;
+}
+
+/* 208px list + 24px gap + a stage wide enough for the ticket and the panel */
+@container state-page (min-width: 876px) {
+  .state-layout {
+    display: grid;
+    grid-template-columns: 208px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .state-stage {
+    align-self: stretch;
+  }
+
+  .state-page.is-bare .state-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .state-switcher {
+    display: flex;
+    position: sticky;
+    top: 24px;
+  }
+
+  .state-switcher-select {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

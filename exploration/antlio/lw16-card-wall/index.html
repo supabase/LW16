@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fafbf8">
+  <meta name="description" content="Launch Week 16 cards wrapped around a convex globe.">
+  <title>LW16 · Card Globe</title>
+  <link rel="stylesheet" href="./style.css?v=2">
+  <script type="importmap">{"imports":{"three":"../shared/three/three.module.js"}}</script>
+</head>
+<body>
+  <main id="wall" aria-label="Launch Week 16 card globe">
+    <h1 class="sr-only">Launch Week 16</h1>
+    <canvas id="scene" tabindex="0" role="img" aria-label="Rows of mint cards wrapped around a convex globe" aria-describedby="help"></canvas>
+    <div class="fallback" id="fallback" hidden></div>
+    <p id="help" class="sr-only">Drag horizontally or scroll to rotate the card globe. Use left and right arrow keys to move one card. Up and down select a row. Enter opens the selected card. Space pauses motion. Home resets the globe.</p>
+    <span id="status" class="sr-only" role="status" aria-live="polite"></span>
+    <nav class="controls" aria-label="Globe controls">
+      <a class="icon" href="../lw16-explorations/?v=wall" aria-label="Back to gallery" title="Gallery"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+      <a class="ticket" href="../lw16-card-flow/">Make your ticket <span aria-hidden="true">↗</span></a>
+      <button class="icon" id="pause" type="button" aria-label="Pause motion" aria-pressed="false" title="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></button>
+    </nav>
+  </main>
+  <dialog id="card-dialog" aria-labelledby="card-title">
+    <h2 id="card-title" class="sr-only"></h2>
+    <button id="close-card" class="icon" aria-label="Close card" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+    <img id="card-image" width="600" height="840" alt="">
+    <a class="ticket" href="../lw16-card-flow/">Make your ticket <span aria-hidden="true">↗</span></a>
+  </dialog>
+  <script type="module" src="./wall.js?v=6"></script>
+</body>
+</html>

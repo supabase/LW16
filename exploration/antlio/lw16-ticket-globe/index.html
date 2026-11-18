@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LW16 · Builders everywhere</title>
+<style>
+:root{color-scheme:dark;--hairline-plate:#18181b;--sphere-light:#2c2c32;--sphere-mid:#1e1e23;--sphere-dark:#151519;--hairline-hi:#d0d6e0;--hairline-edge:#5b5d64;--hairline-mid:#3e3e44;--glyph-edge:#c9cdd4;--glyph-lo:#53535b}
+body{margin:0;overflow:hidden;background:var(--hairline-plate)}
+.figure{position:fixed;inset:0;touch-action:none;user-select:none;cursor:grab}
+.figure:active{cursor:grabbing}
+.figure canvas{width:100%;height:100%;display:block}
+.figure:focus-visible{outline:1px solid var(--hairline-hi);outline-offset:-6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<div class="figure" id="figure" tabindex="0" role="img" aria-label="Continent-shaped monochrome particle swarms with city ticket beacons and glyph satellite paths. Move the pointer to aim, drag to rotate, or use the arrow keys.">
+  <canvas id="drawing" aria-hidden="true"></canvas>
+</div>
+<p class="sr-only" id="status" aria-live="polite"></p>
+</main><script type="module" src="./attendees.js?v=3"></script>
+</body>
+</html>

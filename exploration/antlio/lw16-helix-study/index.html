@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="A hairline helix with a Supabase-shaped opening.">
+  <title>LW16 · S Helix</title>
+  <link rel="stylesheet" href="./style.css?v=2">
+  <script type="importmap">{"imports":{"three":"../shared/three/three.module.js"}}</script>
+</head>
+<body>
+  <main id="study">
+    <h1 class="sr-only">Launch Week 16. S helix.</h1>
+    <canvas id="scene" tabindex="0" role="img" aria-label="A helical arrangement of hairline fins with a Supabase-shaped opening" aria-describedby="help"></canvas>
+    <p id="fallback" hidden>WebGL is unavailable. The helix needs a browser with 3D rendering.</p>
+    <p id="help" class="sr-only">Drag to rotate the helix. Compare the round opening and S center using the buttons. Top view shows the shape from above. Arrow keys rotate the view. Home resets it. Space pauses motion.</p>
+    <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+    <nav aria-label="Helix controls" class="controls">
+      <a class="icon" href="../lw16-explorations/?v=helix" aria-label="Back to gallery" title="Gallery"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+      <div class="modes" role="group" aria-label="Center shape"><button id="ring" type="button" aria-pressed="false">Ring</button><button id="mark" type="button" aria-pressed="true">S center</button></div>
+      <div class="view-controls"><button id="top" type="button" aria-label="Show top view" aria-pressed="false">Top view</button><button class="icon" id="pause" type="button" aria-label="Pause motion" aria-pressed="false" title="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg></button></div>
+    </nav>
+  </main>
+  <script type="module" src="./helix.js?v=8"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+:root{color-scheme:dark;--paper:#050505;--ink:#c9cbbf;--muted:#878b80;--edge:#c9cbbf30}
+*{box-sizing:border-box}
+html,body{margin:0;overflow:hidden;overscroll-behavior:none;background:var(--paper);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible{outline:1px solid var(--ink);outline-offset:5px}
+#study{position:relative;width:100%;height:100svh;min-height:450px;overflow:clip;isolation:isolate}
+#scene{position:absolute;inset:0;display:block;width:100%;height:100%}
+#scene{touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+#scene:focus-visible{outline:1px solid var(--edge);outline-offset:-8px}
+.controls{position:absolute;bottom:24px;left:26px;right:26px;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}
+.controls>*{pointer-events:auto}
+.icon{width:36px;height:36px;display:grid;place-items:center;padding:0;border:1px solid var(--edge);border-radius:50%;background:#080a08e8}
+.icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modes{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:3px;border:1px solid var(--edge);border-radius:999px;background:#080a08e8}
+.modes button{border:0;border-radius:999px;padding:9px 17px;background:none;color:var(--muted);font-size:10px;white-space:nowrap}
+.modes button[aria-pressed="true"]{background:#c9cbbf18;color:var(--ink)}
+.view-controls{display:flex;align-items:center;gap:10px}
+#top{border:0;background:#050505c9;border-radius:999px;padding:10px 6px;color:var(--muted);font-size:10px;white-space:nowrap}
+#top[aria-pressed="true"]{color:var(--ink)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#fallback{position:absolute;top:45%;left:15%;right:15%;font-size:13px;text-align:center;line-height:1.7}
+#fallback[hidden]{display:none}
+@media(max-width:650px){.controls{left:18px;right:18px;bottom:22px;gap:10px}.icon{width:32px;height:32px}.modes button{padding:8px 12px;font-size:9px}.view-controls{gap:5px}#top{font-size:9px}.modes{left:45%}}
